@@ -1,5 +1,8 @@
 from datetime import date, datetime
 import json
+from csv import writer
+from process import get_time
+
 
 data = None
 
@@ -36,16 +39,18 @@ def get_accumulated_minutes():
 def is_running_challenge():
 	return data
 		
-def add_minutes(minutes):
+def add_minutes(line):
 	global data
+	minutes = get_time(line)
 	
 	now = datetime.now()
 	delta = (now - get_reference_date()).total_seconds()
 	acc = get_accumulated_minutes() + int(minutes)
 	data['accumulated'] = acc
 	
-	with open('current.6wc.csv', 'a') as f:
-		f.write(str(delta)+';'+str(acc)+'\n')
+	with open('current.6wc.csv', 'ab') as f:
+		w = writer(f, delimiter=';')
+		w.writerow([delta, acc, line])
 	
 	
 

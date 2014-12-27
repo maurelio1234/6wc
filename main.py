@@ -21,8 +21,8 @@ print 'You have already studied for {:02d}h{:02d}min.'.format(h,m)
 
 register = raw_input('Do you want to add more minutes? (y/n)')
 if register == 'y':
-	minutes = raw_input('XhYmin: ')
-	model.add_minutes(process.get_time(minutes))
+	tweet = raw_input('Tweet including XhYmin: ')
+	model.add_minutes(tweet)
 	
 	h,m = process.minutes2hm(model.get_accumulated_minutes())
 	print 'You have already studied for {:02d}h{:02d}min.'.format(h,m)
