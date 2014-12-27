@@ -4,7 +4,7 @@ import string
 import re
 
 def get_time(s):
-	match = re.search(r'((?P<hours>[0-9]+)\s*(h|hour)\s*)?(?P<minutes>[0-9]+)\s*(min|minutes)', s)
+	match = re.search(r'((?P<hours>[0-9]+)\s*(h|hour(s)?)\s*)?(?P<minutes>[0-9]+)\s*(min|minutes)?', s)
 	if match:
 		hours = match.group('hours')
 		minutes = match.group('minutes')
@@ -14,7 +14,7 @@ def get_time(s):
 		return toint(hours)*60 + toint(minutes)
 	return None
 
-def do_process():
+def extract_6wcbot():
 	with open('tweets.csv') as f:
 		with open('tweets_6wcbot.csv', 'w') as g:
 			for line in csv.reader(f, delimiter=','):
@@ -60,7 +60,7 @@ def compute_acc(reference_date):
 
 	with open('tweets_6wcbot_r_a.csv') as f:
 		last_ts = None
-		last_acc = None
+		last_acc = 0
 		for line in csv.reader(f, delimiter=';'):
 				ts = float(line[0])
 				acc = int(line[1])
@@ -69,7 +69,9 @@ def compute_acc(reference_date):
 
 				last_ts = ts
 				last_acc = acc
-		return None
+		return 0
 
 def minutes2hm(min):
 	return min/60, min%60
+	
+#print compute_acc(datetime(2014,12,05))
