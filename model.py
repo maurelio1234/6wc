@@ -23,11 +23,14 @@ def initialize_challenge(duration=6):
 	
 	data = {}
 	today = date.today()
-	data['year'] = today.year
-	data['month'] = today.month
-	data['day'] = today.day
-	data['accumulated'] = 0
-	data['duration'] = duration
+	
+	data = {
+	    'year':  today.year,
+	    'month': today.month,
+	    'day':   today.day,
+	    'accumulated': 0,
+	    'duration': duration  
+	}
 	save_data()
 	
 def get_reference_date():
