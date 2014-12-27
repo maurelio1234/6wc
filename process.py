@@ -55,15 +55,16 @@ def accumulative():
 					delta = ts - first_ts
 					g.write(str(delta.total_seconds()) + ';' + str(acc)+'\n')
 
-def compute_acc(reference_date):
+def compute_acc(reference_date, duration=6):
 	current_ts = (datetime.now() - reference_date).total_seconds()
 
 	with open('tweets_6wcbot_r_a.csv') as f:
 		last_ts = None
 		last_acc = 0
 		for line in csv.reader(f, delimiter=';'):
-				ts = float(line[0])
-				acc = int(line[1])
+				ts = float(line[0])*duration / 6 
+				acc = int(line[1])*duration/6
+				
 				if current_ts < ts:
 					return last_acc
 

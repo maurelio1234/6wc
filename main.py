@@ -5,6 +5,7 @@ model.load_data()
 
 if not model.is_running_challenge():
 	create_challenge = raw_input('No challenge running. Create a new one? (y/n)')
+	#TODO: ask for duration
 	
 	if create_challenge == 'y':
 		model.initialize_challenge()
@@ -13,7 +14,7 @@ if not model.is_running_challenge():
 		
 print 'Current challenge started at '+str(model.get_reference_date())
 
-h,m = process.minutes2hm(process.compute_acc(model.get_reference_date()))
+h,m = process.minutes2hm(process.compute_acc(model.get_reference_date(), model.get_duration()))
 print 'Your adversary has already studied for {:02d}h{:02d}min'.format(h,m)
 
 h,m = process.minutes2hm(model.get_accumulated_minutes())

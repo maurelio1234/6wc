@@ -18,7 +18,7 @@ def save_data():
 	with open('current.6wc.txt', 'w') as f:
 		json.dump(data, f, indent=4)
 	
-def initialize_challenge():
+def initialize_challenge(duration=6):
 	global data
 	
 	data = {}
@@ -27,7 +27,7 @@ def initialize_challenge():
 	data['month'] = today.month
 	data['day'] = today.day
 	data['accumulated'] = 0
-	
+	data['duration'] = duration
 	save_data()
 	
 def get_reference_date():
@@ -38,7 +38,10 @@ def get_accumulated_minutes():
 	
 def is_running_challenge():
 	return data
-		
+
+def get_duration():
+	return int(data['duration'])
+	
 def add_minutes(line):
 	global data
 	minutes = get_time(line)
