@@ -1,5 +1,6 @@
 import model
 import process
+from datetime import datetime, timedelta
 
 model.load_data()
 
@@ -12,7 +13,12 @@ if not model.is_running_challenge():
 	else:
 		exit()
 		
-print 'Current challenge started at '+str(model.get_reference_date())
+start_date = model.get_reference_date()
+end_date = start_date + timedelta(weeks=model.get_duration())
+
+print 'Current challenge started at '+str(start_date)+ ' and will finish at '+str(end_date)
+print 'Time elapsed: '+str(datetime.now() - start_date)
+print 'Remaining time: '+str(end_date - datetime.now())
 
 h,m = process.minutes2hm(process.compute_acc(model.get_reference_date(), model.get_duration()))
 print 'Your adversary has already studied for {:02d}h{:02d}min'.format(h,m)
