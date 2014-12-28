@@ -20,9 +20,8 @@ print 'Your adversary has already studied for {:02d}h{:02d}min'.format(h,m)
 h,m = process.minutes2hm(model.get_accumulated_minutes())
 print 'You have already studied for {:02d}h{:02d}min.'.format(h,m)
 
-register = raw_input('Do you want to add more minutes? (y/n)')
-if register == 'y':
-	tweet = raw_input('Tweet including XhYmin: ')
+tweet = raw_input('Tweet including XhYmin (empty for quit): ')
+if tweet:
 	model.add_minutes(tweet)
 	
 	h,m = process.minutes2hm(model.get_accumulated_minutes())
