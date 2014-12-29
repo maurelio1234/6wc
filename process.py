@@ -55,8 +55,11 @@ def accumulative():
 					delta = ts - first_ts
 					g.write(str(delta.total_seconds()) + ';' + str(acc)+'\n')
 
-def compute_acc(reference_date, duration=6):
-	current_ts = (datetime.now() - reference_date).total_seconds()
+def compute_acc(reference_start, reference_end=None, duration=6):
+	if not reference_end:
+		reference_end = datetime.now()
+		
+	current_ts = (reference_end - reference_start).total_seconds()
 
 	with open('tweets_6wcbot_r_a.csv') as f:
 		last_ts = None
