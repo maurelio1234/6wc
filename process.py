@@ -4,7 +4,7 @@ import string
 import re
 
 def get_time(s):
-	match = re.search(r'((?P<hours>[0-9]+)\s*(h|hour(s)?)\s*)?(?P<minutes>[0-9]+)\s*(min|minutes)?', s)
+	match = re.search(r'((?P<hours>[0-9]+)\s*(h|hour(s)?)\s*)?((?P<minutes>[0-9]+)\s*(min|minutes)?)?', s)
 	if match:
 		hours = match.group('hours')
 		minutes = match.group('minutes')
@@ -79,3 +79,4 @@ def minutes2hm(min):
 	return min/60, min%60
 	
 #print compute_acc(datetime(2014,12,05))
+print get_time(raw_input())
