@@ -56,6 +56,8 @@ def accumulative():
 					g.write(str(delta.total_seconds()) + ';' + str(acc)+'\n')
 
 def compute_acc(reference_start, reference_end=None, duration=6):
+	"""computes the number of minutes accumulated in the reference CSV
+	 	 taking reference start and end dates, and a challenge duration in weeks"""
 	if not reference_end:
 		reference_end = datetime.now()
 		
@@ -76,7 +78,8 @@ def compute_acc(reference_start, reference_end=None, duration=6):
 		return 0
 
 def minutes2hm(min):
+	""" returns hour,minute from an int representing an amount of minutes """
 	return min/60, min%60
 	
 #print compute_acc(datetime(2014,12,05))
-print get_time(raw_input())
+#print get_time(raw_input())

@@ -3,7 +3,6 @@ import json
 from csv import writer
 from process import get_time
 
-
 data = None
 
 def load_data():
