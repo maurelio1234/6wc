@@ -4,15 +4,19 @@ import string
 import re
 
 def get_time(s):
-	match = re.search(r'((?P<hours>[0-9]+)\s*(h|hour(s)?)\s*)?((?P<minutes>[0-9]+)\s*(min|minutes)?)?', s)
-	if match:
-		hours = match.group('hours')
-		minutes = match.group('minutes')
-		def toint(s):
-			if s: return int(s)
+	""" interprets time based expressions in s and returns it as a number of minutes """
+	
+	def get_match_int(res, s, g=1):
+		match = re.search(res, s)
+		if match:
+			return int(match.group(g))
+		else:
 			return 0
-		return toint(hours)*60 + toint(minutes)
-	return None
+			
+	hours = get_match_int(r'(?P<hours>[0-9]+)\s*(h|hour(s)?)', s)
+	minutes = get_match_int(r'(?P<minutes>[0-9]+)\s*(min|minute(s)?)', s)
+
+	return hours*60 + minutes
 
 def extract_6wcbot():
 	with open('tweets.csv') as f:
@@ -81,5 +85,6 @@ def minutes2hm(min):
 	""" returns hour,minute from an int representing an amount of minutes """
 	return min/60, min%60
 	
+# usage	
 #print compute_acc(datetime(2014,12,05))
 #print get_time(raw_input())
