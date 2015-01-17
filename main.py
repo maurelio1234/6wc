@@ -9,7 +9,8 @@ if not model.is_running_challenge():
 	#TODO: ask for duration
 	
 	if create_challenge == 'y':
-		model.initialize_challenge()
+		duration = raw_input('What is the duration of the new challenge (in weeks): ')
+		model.initialize_challenge(duration)
 	else:
 		exit()
 		
@@ -21,7 +22,7 @@ if datetime.now() > end_date:
 	      'and finished at {:%Y-%m-%d}'.format(start_date,end_date)
 
 	my_acc = model.get_accumulated_minutes()
-	opp_acc = process.compute_acc(model.get_reference_date(), duration=model.get_duration())
+	opp_acc = process.compute_acc(model.get_reference_date(), duration=model.get_duration(), reference_end=end_date)
 	
 	if my_acc > opp_acc:
 		print 'You won it!'
