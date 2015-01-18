@@ -6,7 +6,6 @@ model.load_data()
 
 if not model.is_running_challenge():
 	create_challenge = raw_input('No challenge running. Create a new one? (y/n)')
-	#TODO: ask for duration
 	
 	if create_challenge == 'y':
 		duration = raw_input('What is the duration of the new challenge (in weeks): ')

@@ -39,15 +39,15 @@ def extract_6wcbot():
 						else:
 							print 'huh? ' + text
 
-def reverse():
-	with open('tweets_6wcbot.csv') as f: 
-		with open('tweets_6wcbot_r.csv', 'w') as g:
+def reverse(fin='tweets_6wcbot.csv', fout='tweets_6wcbot_r.csv'):
+	with open(fin) as f:   
+		with open(fout, 'w') as g:
 			for line in reversed(f.readlines()):
 				g.write(line + '\n')
 
-def accumulative():
-	with open('tweets_6wcbot_r.csv') as f:
-		with open('tweets_6wcbot_r_a.csv', 'w') as g:
+def accumulative(fin='tweets_6wcbot_r.csv', fout='tweets_6wcbot_r_a.csv'):
+	with open(fin) as f:
+		with open(fout, 'w') as g:
 			acc = 0
 			first_ts = None
 			for line in csv.reader(f, delimiter=';'):
@@ -71,8 +71,8 @@ def compute_acc(reference_start, reference_end=None, duration=6):
 		last_ts = None
 		last_acc = 0
 		for line in csv.reader(f, delimiter=';'):
-				ts = float(line[0])*duration / 6 
-				acc = int(line[1])*duration/6
+				ts = float(line[0])*duration / 6.0
+				acc = int(line[1])*duration/6.0
 				
 				if current_ts < ts:
 					return last_acc
@@ -85,6 +85,16 @@ def minutes2hm(min):
 	""" returns hour,minute from an int representing an amount of minutes """
 	return min/60, min%60
 	
+def normalize(in_duration, fin='current.6wc.csv',fout='current.norm.6wc.csv'):
+	with open(fin) as f:
+		with open(fout, 'w') as g:
+			for line in csv.reader(f, delimiter=';'):
+				ts = float(line[0])*6.0/in_duration
+				acc = int(line[1])*6.0/in_duration
+				g.write(str(ts)+';'+str(int(acc))+'\n')
+	
+normalize(1)
+
 # usage	
 #print compute_acc(datetime(2014,12,05))
 #print get_time(raw_input())
