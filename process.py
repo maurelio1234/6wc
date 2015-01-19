@@ -59,7 +59,7 @@ def accumulative(fin='tweets_6wcbot_r.csv', fout='tweets_6wcbot_r_a.csv'):
 					delta = ts - first_ts
 					g.write(str(delta.total_seconds()) + ';' + str(acc)+'\n')
 
-def compute_acc(reference_start, reference_end=None, duration=6):
+def compute_acc(reference_start, reference_end=None, duration=6, fname='tweets_6wcbot_r_a.csv'):
 	"""computes the number of minutes accumulated in the reference CSV
 	 	 taking reference start and end dates, and a challenge duration in weeks"""
 	if not reference_end:
@@ -67,12 +67,12 @@ def compute_acc(reference_start, reference_end=None, duration=6):
 		
 	current_ts = (reference_end - reference_start).total_seconds()
 
-	with open('tweets_6wcbot_r_a.csv') as f:
+	with open(fname) as f:
 		last_ts = None
 		last_acc = 0
 		for line in csv.reader(f, delimiter=';'):
 				ts = float(line[0])*duration / 6.0
-				acc = int(line[1])*duration/6.0
+				acc = int(int(line[1])*duration/6.0)
 				
 				if current_ts < ts:
 					return last_acc
@@ -90,10 +90,10 @@ def normalize(in_duration, fin='current.6wc.csv',fout='current.norm.6wc.csv'):
 		with open(fout, 'w') as g:
 			for line in csv.reader(f, delimiter=';'):
 				ts = float(line[0])*6.0/in_duration
-				acc = int(line[1])*6.0/in_duration
+				acc = int(int(line[1])*6.0/in_duration)
 				g.write(str(ts)+';'+str(int(acc))+'\n')
 	
-normalize(1)
+#normalize(1)
 
 # usage	
 #print compute_acc(datetime(2014,12,05))

@@ -5,16 +5,16 @@ from process import get_time
 
 data = None
 
-def load_data():
+def load_data(fname='current.6wc.txt'):
 	global data	
 	try:
-		with open('current.6wc.txt') as f:
+		with open(fname) as f:
 			data = json.load(f)
 	except BaseException:
 		data = None 
 	
-def save_data():
-	with open('current.6wc.txt', 'w') as f:
+def save_data(fname='current.6wc.txt'):
+	with open(fname, 'w') as f:
 		json.dump(data, f, indent=4)
 	
 def initialize_challenge(duration=6):
@@ -44,7 +44,7 @@ def is_running_challenge():
 def get_duration():
 	return int(data['duration'])
 	
-def add_minutes(line):
+def add_minutes(line, fname='current.6wc.txt'):
 	global data
 	minutes = get_time(line)
 	
@@ -53,7 +53,7 @@ def add_minutes(line):
 	acc = get_accumulated_minutes() + int(minutes)
 	data['accumulated'] = acc
 	
-	with open('current.6wc.csv', 'ab') as f:
+	with open(fname, 'ab') as f:
 		w = writer(f, delimiter=';')
 		w.writerow([delta, acc, line])
 	
