@@ -2,6 +2,7 @@ from datetime import date, datetime
 import json
 from csv import writer
 from process import get_time
+import os
 
 data = None
 
@@ -32,6 +33,12 @@ def initialize_challenge(duration=6):
 	}
 	save_data()
 	
+def finalize_challenge(fname='current.6wc.txt'):
+	try:
+		os.rename(fname, '{:s}.{:%Y%m%d}.txt'.format(fname, datetime.now()))
+	except :
+		pass
+		
 def get_reference_date():
 	return datetime(int(data['year']), int(data['month']), int(data['day']))
 
@@ -56,6 +63,8 @@ def add_minutes(line, fname='current.6wc.txt'):
 	with open(fname, 'ab') as f:
 		w = writer(f, delimiter=';')
 		w.writerow([delta, acc, line])
+		
+finalize_challenge()
 	
 	
 

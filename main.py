@@ -17,7 +17,8 @@ start_date = model.get_reference_date()
 end_date = start_date + timedelta(weeks=model.get_duration())
 
 if datetime.now() > end_date:
-	print 'Last challenge is over! It started at{:%Y-%m-%d} '\
+	print 'Current challenge is over!'
+	print 'Last challenge started at {:%Y-%m-%d} '\
 	      'and finished at {:%Y-%m-%d}'.format(start_date,end_date)
 
 	my_acc = model.get_accumulated_minutes()
@@ -32,6 +33,11 @@ if datetime.now() > end_date:
 	print 'You worked for {:02d}h{:02d}min'.format(h,m)
 	h,m = process.minutes2hm(opp_acc)
 	print 'Your opponent worked for {:02d}h{:02d}min'.format(h,m)
+	
+	save = raw_input('Do you want to save this challenge data? (y/n)')
+	if save == 'y':
+		filename = ...
+		process.normalize(model.get_duration...)
 else:
 	print 'Current challenge started at {:%Y-%m-%d} '\
 	      'and will finish at {:%Y-%m-%d}'.format(start_date,end_date)
