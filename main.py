@@ -1,6 +1,7 @@
 import model
 import process
 from datetime import datetime, timedelta
+from sys import exit
 
 model.load_data()
 
@@ -36,8 +37,7 @@ if datetime.now() > end_date:
 	
 	save = raw_input('Do you want to save this challenge data? (y/n)')
 	if save == 'y':
-		filename = ...
-		process.normalize(model.get_duration...)
+		process.normalize(model.get_duration(), fin='current.6wc.csv', fout='challenge.{:%Y%m%d}.csv'.format(start_date))
 else:
 	print 'Current challenge started at {:%Y-%m-%d} '\
 	      'and will finish at {:%Y-%m-%d}'.format(start_date,end_date)
